@@ -8,7 +8,11 @@ class DishDetail extends Component {
     };
 
     componentDidMount() {
-        console.log("Mounted");
+        console.log("DishDetailComponent Mounted");
+    };
+
+    componentDidUpdate() {
+        console.log("DishDetailComponent Update");
     };
 
     renderDish(dish) {
@@ -58,18 +62,22 @@ class DishDetail extends Component {
 
     render() {
 
+        console.log("DishDetailComponent Render");
+
         let comments;
         if (this.props.dish != null) {
             comments = this.renderComments(this.props.dish.comments);
         };
 
         return (
-            <div className="row">
-                <div className="col-12 col-md-5 m-1">
-                    {this.renderDish(this.props.dish)}
-                </div>
-                <div className="col-12 col-md-5 m-1">
-                    {comments}
+            <div className="container">
+                <div className="row">
+                    <div className="col-12 col-md-5 m-1">
+                        {this.renderDish(this.props.dish)}
+                    </div>
+                    <div className="col-12 col-md-5 m-1">
+                        {comments}
+                    </div>
                 </div>
             </div>
         );
