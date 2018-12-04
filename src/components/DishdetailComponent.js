@@ -11,6 +11,86 @@ const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => val && (val.length >= len);
 
+class CommentForm extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            isModalOpen: false
+        };
+        this.toggleModal = this.toggleModal.bind(this);
+    };
+
+    toggleModal() {
+        this.setState({
+            isModalOpen: !this.state.isModalOpen
+        });
+    };
+
+    render() {
+        return (
+            <div>
+                <Button outline type="submit" color="secondary" onClick={this.toggleModal}>
+                    <span className="fa fa-comment fa-lg"></span> Submit Comment
+                </Button>
+                <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
+                    <ModalHeader toggle={this.toggleModal}>
+                        Submit Comment
+                    </ModalHeader>
+                    <ModalBody>
+                        <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
+                            <Row className="form-group">
+                                <Label htmlFor="rating" md={12}>Rating</Label>
+                                <Col md={12}>
+                                    <Control.select model=".rating" id="rating" name="rating" className="form-control">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </Control.select>
+                                </Col>
+                            </Row>
+                            <Row className="form-group">
+                                <Label htmlFor="yourname" md={12}>Your Name</Label>
+                                <Col md={12}>
+                                    <Control.text model=".yourname" id="yourname" name="yourname"
+                                        placeholder="Your Name"
+                                        className="form-control"
+                                        validators={{
+                                            required, minLength: minLength(3), maxLength: maxLength(15)
+                                        }}
+                                    />
+                                    <Errors
+                                        className="text-danger"
+                                        model=".yourname"
+                                        show="touched"
+                                        messages={{
+                                            required: 'Required',
+                                            minLength: 'Must be greater than 2 characters',
+                                            maxLength: 'Must be 15 characters or less'
+                                        }}
+                                    />
+                                </Col>
+                            </Row>
+                            <Row className="form-group">
+                                <Label htmlFor="telnum" md={12}>Comment</Label>
+                                <Col md={12}>
+                                    <Control.textarea model=".comment" id="comment" name="comment"
+                                        className="form-control" rows="6"
+                                    />
+                                </Col>
+                            </Row>
+                            <Button type="submit" value="submit" color="primary">Submit</Button>
+                        </LocalForm>
+                    </ModalBody>
+                </Modal>
+            </div>
+        );
+    };
+
+};
+
 function RenderDish({ dish }) {
     if (dish != null)
         return (
@@ -51,6 +131,7 @@ function RenderComments({ comments }) {
                     <h4>Comments</h4>
                 </Media>
                 {commentsCard}
+                <CommentForm />
             </div>
         );
     } else {
