@@ -31,7 +31,7 @@ class CommentForm extends Component {
     };
 
     handleSubmit(values) {
-        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
+        this.props.postComment(this.props.dishId, values.rating, values.author, values.comment);
     };
 
     render() {
@@ -117,7 +117,7 @@ function RenderDish({ dish }) {
         );
 };
 
-function RenderComments({ comments, addComment, dishId }) {
+function RenderComments({ comments, postComment, dishId }) {
     if (comments != null) {
         const commentsCard = comments.map((comment) => {
             return (
@@ -138,7 +138,7 @@ function RenderComments({ comments, addComment, dishId }) {
                     <h4>Comments</h4>
                 </Media>
                 {commentsCard}
-                <CommentForm dishId={dishId} addComment={addComment} />
+                <CommentForm dishId={dishId} postComment={postComment} />
             </div>
         );
     } else {
@@ -167,7 +167,7 @@ const DishDetail = (props) => {
             </div>
         );
     } else if (props.dish != null) {
-        commentsCard = <RenderComments comments={props.comments} addComment={props.addComment} dishId={props.dish.id} />;
+        commentsCard = <RenderComments comments={props.comments} postComment={props.postComment} dishId={props.dish.id} />;
         //
         return (
             <div className="container">
