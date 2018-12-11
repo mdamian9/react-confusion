@@ -3,7 +3,7 @@ import * as ActionTypes from './ActionTypes';
 export const Leaders = (state = {
     isLoading: true,
     errMess: null,
-    promotions: []
+    leaders: []
 }, action) => {
     switch (action.type) {
         case ActionTypes.ADD_LEADERS:

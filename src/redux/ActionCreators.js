@@ -181,3 +181,8 @@ export const addLeaders = (leaders) => ({
     type: ActionTypes.ADD_LEADERS,
     payload: leaders
 });
+
+// unfinished method
+export const postFeedback = (feedback) => {
+
+};
