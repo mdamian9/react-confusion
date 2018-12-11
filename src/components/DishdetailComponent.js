@@ -122,19 +122,6 @@ function RenderDish({ dish }) {
 
 function RenderComments({ comments, postComment, dishId }) {
     if (comments != null) {
-        // const commentsCard = comments.map((comment) => {
-        //     return (
-        //         <Media key={comment.id} list className="list-unstyled">
-        //             <Media tag="li">
-        //                 <p>{comment.comment}</p>
-        //             </Media>
-        //             <Media tag="li">
-        //                 -- {comment.author}, {new Intl.DateTimeFormat('en-US',
-        //                     { year: 'numeric', month: 'long', day: '2-digit' }).format(new Date(comment.date))}
-        //             </Media>
-        //         </Media>
-        //     );
-        // });
         return (
             <div className="col-12 col-md-5 m-1">
                 <h4>Comments</h4>
