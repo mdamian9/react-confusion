@@ -182,7 +182,37 @@ export const addLeaders = (leaders) => ({
     payload: leaders
 });
 
-// unfinished method
-export const postFeedback = (feedback) => {
+export const postFeedback = (feedback) => (dispatch) => {
+    const newFeedback = {
+        feedback: feedback
+    };
 
+    return fetch(baseUrl + 'feedback', {
+        method: "POST",
+        body: JSON.stringify(newFeedback),
+        headers: {
+            "Content-Type": "application/json"
+        },
+        credentials: "same-origin"
+    })
+        .then(response => {
+            if (response.ok) {
+                return response;
+            } else {
+                var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                error.response = response
+                throw error;
+            }
+        },
+            error => {
+                throw error;
+            })
+        .then(response => response.json())
+        .then(response => { dispatch(addFeedback(response)); alert("Feedback posted.\n" + JSON.stringify(response)); })
+        .catch(error => { console.log('post feedback', error.message); alert('Your feedback could not be saved.\nError: ' + error.message) });
 };
+
+export const addFeedback = (feedback) => ({
+    type: ActionTypes.ADD_FEEDBACK,
+    payload: feedback
+});
